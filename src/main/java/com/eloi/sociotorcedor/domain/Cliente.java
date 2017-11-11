@@ -2,15 +2,36 @@ package com.eloi.sociotorcedor.domain;
 
 import java.time.LocalDate;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
+import org.hibernate.validator.constraints.Email;
+
+import com.eloi.sociotorcedor.infrastructure.LocalDateDeserializer;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 
 @Entity
 public class Cliente {
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
 	private String nomeCompleto;
+	
+	@Email
+	@UnicoEmail(message="Cliente já existe")
 	private String email;
+	
 	private LocalDate dataNascimento;
+	
+	@ManyToOne(cascade = { CascadeType.ALL})
 	private Clube timeCoracao;
 	
 	public Cliente(Long id, String nomeCompleto, String email, LocalDate dataNascimento, Clube timeCoracao) {
