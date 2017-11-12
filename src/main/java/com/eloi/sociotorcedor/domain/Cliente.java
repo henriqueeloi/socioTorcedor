@@ -11,11 +11,6 @@ import javax.persistence.ManyToOne;
 
 import org.hibernate.validator.constraints.Email;
 
-import com.eloi.sociotorcedor.infrastructure.LocalDateDeserializer;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
-
 @Entity
 public class Cliente {
 	
@@ -63,6 +58,10 @@ public class Cliente {
 
 	public Clube getTimeCoracao() {
 		return timeCoracao;
+	}
+	
+	public void defineClube(Clube clube) {
+		this.timeCoracao = clube;
 	}
 	
 }
